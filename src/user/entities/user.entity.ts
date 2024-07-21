@@ -1,4 +1,4 @@
-import { IsEmail, IsString, IsStrongPassword } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString, IsStrongPassword } from "class-validator";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Role } from "../types/roles.type";
 
@@ -11,10 +11,12 @@ export class User {
     @Column()
     username:string;
 
-    @IsEmail()
+    @IsNotEmpty({message: '이메일을 입력해주세요'})
+    @IsEmail({})
     @Column()
     email: string;
 
+    @IsNotEmpty({message: "비밀번호를 입력해주세요"})
     @IsStrongPassword(
         {minLength: 6}
     )
